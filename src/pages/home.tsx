@@ -68,13 +68,10 @@ export default function Home() {
         {/* Bottom fade for progress-strip legibility */}
         <div className="absolute inset-x-0 bottom-0 h-32 pointer-events-none z-10 bg-gradient-to-t from-black/50 to-transparent" />
 
-        {/* Overlay content — left side */}
+        {/* Overlay content — left side. Entrance animation via CSS so we don't depend on Motion lifecycle. */}
         <div className="absolute inset-0 z-20 pointer-events-none container-x flex items-center">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: EASE, delay: 0.4 }}
-            className="max-w-xl text-white"
+          <div
+            className="max-w-xl text-white animate-[hero-rise_1.4s_cubic-bezier(0.22,1,0.36,1)_0.3s_both]"
             style={{ textShadow: "0 2px 24px rgba(0,0,0,0.4)" }}
           >
             <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-light leading-[1.05] text-balance">
@@ -96,7 +93,7 @@ export default function Home() {
                 <ArrowRight size={14} className="transition-transform duration-500 group-hover:translate-x-1" />
               </Link>
             </div>
-          </motion.div>
+          </div>
         </div>
 
         {/* Bottom progress strip */}
