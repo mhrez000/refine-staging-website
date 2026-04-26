@@ -36,13 +36,22 @@ const px = (id: string) => `https://images.pexels.com/photos/${id}/pexels-photo-
 export const HERO_IMAGE = u("1560185893-a55cbc8c57e8");
 
 /**
- * Before / After bedroom pair.
- * Both: hardwood floor + light walls + similar suburban Australian aesthetic.
- * Closest visual match available from stock — swap with a real Refine pair when ready.
+ * Before / After bedroom pair — REAL matched pair of the SAME master bedroom.
+ *
+ * ⚠️ PLACEHOLDER IMAGES — sourced from Kelly Elko's home staging blog post
+ * (kellyelko.com/home-staging-before-after). They are her copyrighted work,
+ * used here ONLY as illustrative placeholders during development.
+ *
+ * MUST BE REPLACED before the site is shared publicly with real customers.
+ * Replace with photos from one of Refine's actual jobs:
+ *   1. Save the before/after photos to /public/before-after/
+ *   2. Update the two lines below to:
+ *      before: asset("/before-after/your-before.jpg"),
+ *      after: asset("/before-after/your-after.jpg"),
  */
 export const BEFORE_AFTER = {
-  before: px("7027995"),                 // empty bedroom, hardwood, white walls
-  after: u("1612152605347-f93296cb657d"), // staged bedroom, hardwood, white walls
+  before: "https://www.kellyelko.com/wp-content/uploads/2021/05/house-staging-before-master-bedroom.jpg",
+  after: "https://www.kellyelko.com/wp-content/uploads/2021/05/house-staging-after-master-bedroom-furniture.jpg",
 } as const;
 
 export const PHOTOS: Photo[] = [
