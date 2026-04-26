@@ -5,7 +5,7 @@ import { SectionLabel } from "@/components/ui/section-label";
 import { Button } from "@/components/ui/button";
 import { FilterableGallery } from "@/components/FilterableGallery";
 import { BeforeAfterSlider } from "@/components/BeforeAfterSlider";
-import { PHOTOS } from "@/data/gallery";
+import { BEFORE_AFTER } from "@/data/gallery";
 
 export default function Gallery() {
   return (
@@ -35,8 +35,8 @@ export default function Gallery() {
           </h2>
         </div>
         <BeforeAfterSlider
-          beforeSrc={PHOTOS[14].src}
-          afterSrc={PHOTOS[3].src}
+          beforeSrc={BEFORE_AFTER.before}
+          afterSrc={BEFORE_AFTER.after}
           beforeLabel="Before"
           afterLabel="Refined"
           aspectRatio="aspect-[16/10]"

@@ -9,7 +9,7 @@ import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { BeforeAfterSlider } from "@/components/BeforeAfterSlider";
 import { SITE, SERVICES, PROCESS } from "@/data/site";
 import { TESTIMONIALS } from "@/data/testimonials";
-import { PHOTOS } from "@/data/gallery";
+import { PHOTOS, HERO_IMAGE, BEFORE_AFTER } from "@/data/gallery";
 import { EASE } from "@/lib/utils";
 
 export default function Home() {
@@ -31,8 +31,8 @@ export default function Home() {
         {/* Parallax background image */}
         <motion.div style={{ y: heroImageY }} className="absolute inset-0">
           <img
-            src={PHOTOS[7].src}
-            alt="Featured staged living room"
+            src={HERO_IMAGE}
+            alt="Featured staged interior"
             className="w-full h-full object-cover scale-110"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-foreground/30 via-foreground/10 to-background" />
@@ -118,8 +118,8 @@ export default function Home() {
           </h2>
         </div>
         <BeforeAfterSlider
-          beforeSrc={PHOTOS[14].src}
-          afterSrc={PHOTOS[7].src}
+          beforeSrc={BEFORE_AFTER.before}
+          afterSrc={BEFORE_AFTER.after}
           beforeLabel="Before"
           afterLabel="Refined"
           aspectRatio="aspect-[16/10]"

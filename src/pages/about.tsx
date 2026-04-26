@@ -31,7 +31,7 @@ export default function About() {
               transition={{ duration: 1, ease: EASE }}
               className="cinematic-image-container aspect-[4/5] sticky top-24"
             >
-              <img src={PHOTOS[1].src} alt="Refine Staging" className="cinematic-image" />
+              <img src={PHOTOS[10].src} alt="Refine Staging" className="cinematic-image" />
             </motion.div>
           </div>
           <div className="lg:col-span-7 lg:pt-12">
@@ -117,7 +117,7 @@ export default function About() {
             </div>
           </div>
           <div className="cinematic-image-container aspect-[5/4]">
-            <img src={PHOTOS[20].src} alt="Melbourne property" className="cinematic-image" />
+            <img src={PHOTOS[18].src} alt="Melbourne property" className="cinematic-image" />
           </div>
         </div>
       </section>
