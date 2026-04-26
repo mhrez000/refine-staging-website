@@ -47,8 +47,8 @@ export const HERO_IMAGE = u("1560185893-a55cbc8c57e8");
 export const BEFORE_AFTER = {
   before: asset("/before-after/living-before.jpg"),
   after: asset("/before-after/living-after.jpg"),
-  /** Recommended slider aspect ratio for these images */
-  aspectRatio: "aspect-[3/1]" as const,
+  /** Slider aspect ratio matched to the images — 3:2 landscape, no cropping */
+  aspectRatio: "aspect-[3/2]" as const,
 } as const;
 
 export const PHOTOS: Photo[] = [
