@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
@@ -34,12 +33,18 @@ export interface ButtonProps
   asChild?: boolean;
 }
 
+/**
+ * Button — supports `asChild` to render as a Link/anchor without losing styles
+ * or the gold slide-in hover effect. Manually clones the child element and
+ * injects the slide span + content wrapper into its children, so we don't
+ * trip Radix Slot's single-child requirement.
+ */
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, children, ...props }, ref) => {
-    const Comp = asChild ? Slot : "button";
     const hasSlide = variant === "default" || variant === undefined;
-    return (
-      <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props}>
+
+    const innerContent = (
+      <>
         {hasSlide && (
           <span
             className="absolute inset-0 bg-accent -translate-x-full group-hover:translate-x-0 transition-transform duration-500"
@@ -47,8 +52,32 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             aria-hidden="true"
           />
         )}
-        <span className="relative z-10 inline-flex items-center gap-2">{children}</span>
-      </Comp>
+        <span className="relative z-10 inline-flex items-center gap-2">
+          {asChild
+            ? (React.Children.only(children) as React.ReactElement<any>).props.children
+            : children}
+        </span>
+      </>
+    );
+
+    if (asChild) {
+      const child = React.Children.only(children) as React.ReactElement<any>;
+      return React.cloneElement(child, {
+        ...(props as Record<string, unknown>),
+        ref,
+        className: cn(buttonVariants({ variant, size, className }), child.props.className),
+        children: innerContent,
+      });
+    }
+
+    return (
+      <button
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
+      >
+        {innerContent}
+      </button>
     );
   }
 );
