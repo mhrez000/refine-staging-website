@@ -45,7 +45,7 @@ export const SERVICES = [
       "Furniture layout suggestions",
       "Quick-win checklist for sale prep",
     ],
-    image: asset("/gallery/g03.jpg"),
+    image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1400&q=80",
   },
   {
     slug: "vacant",
@@ -59,7 +59,7 @@ export const SERVICES = [
       "Delivery, set-up and pack-down",
       "5-week hire period (extendable)",
     ],
-    image: asset("/gallery/g08.jpg"),
+    image: "https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?auto=format&fit=crop&w=1400&q=80",
   },
   {
     slug: "occupied",
