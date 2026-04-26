@@ -36,22 +36,19 @@ const px = (id: string) => `https://images.pexels.com/photos/${id}/pexels-photo-
 export const HERO_IMAGE = u("1560185893-a55cbc8c57e8");
 
 /**
- * Before / After bedroom pair — REAL matched pair of the SAME master bedroom.
+ * Before / After living-room pair — SAME ROOM, panoramic 3:1 framing.
+ * Files live at /public/before-after/ so they're served from our domain.
  *
- * ⚠️ PLACEHOLDER IMAGES — sourced from Kelly Elko's home staging blog post
- * (kellyelko.com/home-staging-before-after). They are her copyrighted work,
- * used here ONLY as illustrative placeholders during development.
- *
- * MUST BE REPLACED before the site is shared publicly with real customers.
- * Replace with photos from one of Refine's actual jobs:
- *   1. Save the before/after photos to /public/before-after/
- *   2. Update the two lines below to:
- *      before: asset("/before-after/your-before.jpg"),
- *      after: asset("/before-after/your-after.jpg"),
+ * To swap with another pair of the same room:
+ *   1. Save your photos as living-before.jpg + living-after.jpg
+ *      (or any matching filenames) into /public/before-after/
+ *   2. Update the asset() paths below
  */
 export const BEFORE_AFTER = {
-  before: "https://www.kellyelko.com/wp-content/uploads/2021/05/house-staging-before-master-bedroom.jpg",
-  after: "https://www.kellyelko.com/wp-content/uploads/2021/05/house-staging-after-master-bedroom-furniture.jpg",
+  before: asset("/before-after/living-before.jpg"),
+  after: asset("/before-after/living-after.jpg"),
+  /** Recommended slider aspect ratio for these images */
+  aspectRatio: "aspect-[3/1]" as const,
 } as const;
 
 export const PHOTOS: Photo[] = [

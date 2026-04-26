@@ -37,9 +37,9 @@ export default function Gallery() {
         <BeforeAfterSlider
           beforeSrc={BEFORE_AFTER.before}
           afterSrc={BEFORE_AFTER.after}
-          beforeLabel="Before"
-          afterLabel="Refined"
-          aspectRatio="aspect-[16/10]"
+          beforeLabel="Empty Space"
+          afterLabel="Beautifully Staged"
+          aspectRatio={BEFORE_AFTER.aspectRatio}
           className="max-w-6xl mx-auto"
         />
       </section>

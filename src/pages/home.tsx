@@ -111,18 +111,22 @@ export default function Home() {
 
       {/* ==================== BEFORE / AFTER FEATURE ==================== */}
       <section className="section-padding container-x">
-        <div className="max-w-2xl mx-auto text-center mb-16">
+        <div className="max-w-3xl mx-auto text-center mb-16">
           <SectionLabel number="01" className="justify-center">The Refine effect</SectionLabel>
-          <h2 className="font-serif text-4xl md:text-6xl mt-6 leading-tight text-balance">
-            <span className="italic">Drag</span> to see the difference.
+          <h2 className="font-serif text-4xl md:text-6xl mt-6 leading-[1.1] text-balance">
+            We don't just stage homes.<br />
+            We transform <span className="italic">potential.</span>
           </h2>
+          <p className="mt-6 text-muted-foreground max-w-md mx-auto">
+            From empty to extraordinary. Drag the handle to see the difference.
+          </p>
         </div>
         <BeforeAfterSlider
           beforeSrc={BEFORE_AFTER.before}
           afterSrc={BEFORE_AFTER.after}
-          beforeLabel="Before"
-          afterLabel="Refined"
-          aspectRatio="aspect-[16/10]"
+          beforeLabel="Empty Space"
+          afterLabel="Beautifully Staged"
+          aspectRatio={BEFORE_AFTER.aspectRatio}
           className="max-w-6xl mx-auto"
         />
         <p className="mt-6 text-center text-sm text-muted-foreground italic">
