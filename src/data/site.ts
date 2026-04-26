@@ -19,7 +19,7 @@ export const SITE = {
 
   instagram: "https://www.instagram.com/refinestaging",
   instagramHandle: "@refinestaging",
-  facebook: "https://www.facebook.com/refinestaging",
+  facebook: "https://www.facebook.com/people/RefineStaging/61568563281583/",
 
   serviceArea: "Melbourne and surrounding suburbs",
 
