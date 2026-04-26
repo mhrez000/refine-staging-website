@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { ArrowRight, Armchair, TrendingUp, Clock, Home as HomeIcon } from "lucide-react";
 import { PageWrapper } from "@/components/layout/PageWrapper";
+import { Logo } from "@/components/Logo";
 import { SectionLabel } from "@/components/ui/section-label";
 import { Button } from "@/components/ui/button";
 import { BeforeAfterSlider } from "@/components/BeforeAfterSlider";
@@ -39,95 +40,74 @@ export default function Home() {
 
   return (
     <PageWrapper>
-      {/* ==================== HERO — panoramic before/after with overlay ==================== */}
-      {/* Image is naturally 3:1 — give the section the same aspect ratio so the entire staged room shows */}
-      <section className="relative w-full overflow-hidden bg-foreground aspect-[3/1] min-h-[520px] md:min-h-[640px]">
-        {/* Slider fills the entire hero */}
-        <div className="absolute inset-0 z-0">
-          <BeforeAfterSlider
-            beforeSrc={BEFORE_AFTER.before}
-            afterSrc={BEFORE_AFTER.after}
-            beforeLabel=""
-            afterLabel=""
-            aspectRatio="h-full"
-            className="w-full h-full"
-          />
-        </div>
-
-        {/* Strong left-side darkening so white text is fully readable on bright "empty" image */}
-        <div
-          className="absolute inset-0 pointer-events-none z-10"
-          style={{
-            background:
-              "linear-gradient(90deg, rgba(15,15,15,0.85) 0%, rgba(15,15,15,0.7) 25%, rgba(15,15,15,0.4) 45%, rgba(15,15,15,0.1) 60%, rgba(0,0,0,0) 75%)",
-          }}
-        />
-
-        {/* Top fade for nav legibility (full-width) */}
-        <div className="absolute inset-x-0 top-0 h-32 pointer-events-none z-10 bg-gradient-to-b from-black/40 to-transparent" />
-
-        {/* Bottom fade for progress-strip legibility */}
-        <div className="absolute inset-x-0 bottom-0 h-32 pointer-events-none z-10 bg-gradient-to-t from-black/50 to-transparent" />
-
-        {/* Overlay content — left side. Entrance animation via CSS so we don't depend on Motion lifecycle. */}
-        <div className="absolute inset-0 z-20 pointer-events-none container-x flex items-center">
-          <div
-            className="max-w-lg text-white animate-[hero-rise_1.4s_cubic-bezier(0.22,1,0.36,1)_0.3s_both]"
-            style={{ textShadow: "0 2px 24px rgba(0,0,0,0.4)" }}
-          >
-            <h1 className="font-serif text-3xl md:text-5xl lg:text-6xl font-light leading-[1.05] text-balance">
+      {/* ==================== HERO — split layout, image standalone on the right ==================== */}
+      <section className="pt-28 md:pt-32 lg:pt-36 pb-12 md:pb-16 container-x">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          {/* LEFT — brand + headline + CTA */}
+          <div className="lg:col-span-5 animate-[hero-rise_1.4s_cubic-bezier(0.22,1,0.36,1)_0.2s_both]">
+            <Logo size="lg" layout="stacked" variant="dark" asLink={false} className="mb-10" />
+            <h1 className="font-serif text-4xl md:text-5xl xl:text-6xl font-light leading-[1.05] text-balance">
               We don't just <span className="italic">stage homes.</span>{" "}
               We transform <span className="italic text-accent">potential.</span>
             </h1>
-            <p className="mt-5 md:mt-6 text-sm md:text-base text-white/90 max-w-md leading-relaxed">
-              From empty to extraordinary.<br className="hidden md:inline" />{" "}
-              We help homes stand out and sell faster.
+            <p className="mt-6 text-base md:text-lg text-muted-foreground max-w-md leading-relaxed">
+              From empty to extraordinary. We help homes stand out and sell faster.
             </p>
-            <div className="mt-6 md:mt-8 pointer-events-auto inline-block">
+            <div className="mt-8 inline-block">
               <Link
                 href="/contact"
-                className="group inline-flex items-center gap-3 px-6 md:px-8 py-3 md:py-4 border border-accent text-white text-[10px] md:text-[11px] uppercase tracking-[0.25em] font-medium transition-all duration-500 hover:bg-accent hover:border-accent"
+                className="group inline-flex items-center gap-3 px-8 py-4 border border-foreground text-foreground text-[11px] uppercase tracking-[0.25em] font-medium transition-all duration-500 hover:bg-foreground hover:text-background"
               >
                 Book a Consultation
                 <ArrowRight size={14} className="transition-transform duration-500 group-hover:translate-x-1" />
               </Link>
             </div>
           </div>
-        </div>
 
-        {/* Bottom progress strip */}
-        <div className="absolute bottom-0 inset-x-0 pb-10 pointer-events-none z-20">
-          <div className="container-x">
-            <div className="grid grid-cols-3 gap-4 max-w-5xl mx-auto items-center">
-              <div className="text-white flex items-center gap-3">
-                <span className="font-serif italic text-sm opacity-70">01</span>
-                <span className="h-px flex-1 bg-white/30" />
-                <span className="text-[10px] uppercase tracking-[0.3em] font-medium whitespace-nowrap">
+          {/* RIGHT — image alone, nothing overlaid */}
+          <div className="lg:col-span-7 animate-[hero-rise_1.4s_cubic-bezier(0.22,1,0.36,1)_0.4s_both]">
+            <div className="relative">
+              <BeforeAfterSlider
+                beforeSrc={BEFORE_AFTER.before}
+                afterSrc={BEFORE_AFTER.after}
+                beforeLabel=""
+                afterLabel=""
+                aspectRatio="aspect-[3/2]"
+                className="w-full"
+              />
+            </div>
+
+            {/* Progress strip — directly under the image */}
+            <div className="mt-6 grid grid-cols-3 gap-2 items-center text-foreground">
+              <div className="flex items-center gap-3">
+                <span className="font-serif italic text-xs opacity-60">01</span>
+                <span className="h-px flex-1 bg-foreground/20" />
+                <span className="text-[9px] md:text-[10px] uppercase tracking-[0.25em] font-medium whitespace-nowrap">
                   Empty Space
                 </span>
               </div>
-              <div className="text-white flex items-center justify-center gap-3">
-                <span className="h-px flex-1 bg-white/30" />
-                <span className="h-2 w-2 rounded-full bg-white ring-4 ring-white/20" />
-                <span className="text-[10px] uppercase tracking-[0.3em] font-medium whitespace-nowrap">
+              <div className="flex items-center justify-center gap-3">
+                <span className="h-px flex-1 bg-foreground/20" />
+                <span className="h-2 w-2 rounded-full bg-accent ring-4 ring-accent/20" />
+                <span className="text-[9px] md:text-[10px] uppercase tracking-[0.25em] font-medium whitespace-nowrap">
                   Transformation
                 </span>
-                <span className="h-px flex-1 bg-white/30" />
+                <span className="h-px flex-1 bg-foreground/20" />
               </div>
-              <div className="text-white flex items-center gap-3 justify-end">
-                <span className="text-[10px] uppercase tracking-[0.3em] font-medium whitespace-nowrap">
+              <div className="flex items-center gap-3 justify-end">
+                <span className="text-[9px] md:text-[10px] uppercase tracking-[0.25em] font-medium whitespace-nowrap">
                   Beautifully Staged
                 </span>
-                <span className="h-px flex-1 bg-white/30" />
-                <span className="font-serif italic text-sm opacity-70">03</span>
+                <span className="h-px flex-1 bg-foreground/20" />
+                <span className="font-serif italic text-xs opacity-60">03</span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ==================== FEATURE CARDS — replaces stats ==================== */}
-      <section className="py-20 md:py-28 container-x bg-background border-b border-border/40">
+      {/* ==================== FEATURE CARDS ==================== */}
+      <section className="py-20 md:py-24 container-x bg-background border-t border-border/40">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-8 max-w-6xl mx-auto">
           {FEATURES.map((f, i) => {
             const Icon = f.icon;

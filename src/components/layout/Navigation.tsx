@@ -32,9 +32,9 @@ export function Navigation() {
     setMobileOpen(false);
   }, [location]);
 
-  // On home page (over the dark side of the slider), use light variant before scroll
-  const isHome = location === "/";
-  const useLight = isHome && !scrolled && !mobileOpen;
+  // Nav now always sits over a light/cream background — no need for light variant
+  const useLight = false;
+  void location;
 
   return (
     <>
