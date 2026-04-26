@@ -1,11 +1,20 @@
 /**
  * Gallery photo manifest.
  *
- * PLACEHOLDER PHOTOS: Curated Unsplash interior shots until Refine Staging
- * provides real project photos. To swap to real photos:
- *   1. Drop new photos into `public/gallery/` (or `public/uploads/`)
- *   2. Replace the `src` value below with `asset("/gallery/your-photo.jpg")`
+ * PLACEHOLDER PHOTOS: Curated stock photos chosen specifically to show STAGING
+ * WORK — beds made up with throws + pillows, gallery walls, styled coffee
+ * tables, plants and decor. Not pure architecture shots.
+ *
+ * To swap to real Refine project photos:
+ *   1. Drop new photos into `public/uploads/`
+ *   2. Replace `src` below with `asset("/uploads/your-photo.jpg")`
  *   3. Update `categories` to reflect the actual room/service type
+ *
+ * NOTE on Before/After: stock photos don't have true matched pairs of the
+ * SAME room before & after staging (no photographer shoots both). The pair
+ * below is the closest visual match — empty room and styled room with the
+ * same wall tone and hardwood floor. For launch, capture a real
+ * before/after from one of Refine's actual jobs and swap in.
  */
 
 import { asset } from "@/lib/utils";
@@ -18,55 +27,61 @@ export interface Photo {
   categories: Category[];
 }
 
-// Unsplash CDN format params — high quality, ~1400px wide
 const UQ = "?auto=format&fit=crop&w=1400&q=80";
 const u = (id: string) => `https://images.unsplash.com/photo-${id}${UQ}`;
+const px = (id: string) => `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=1400`;
 
-// Hero (used on home page hero) — change to your favourite shot
-export const HERO_IMAGE = u("1556909114-f6e7ad7d3136");
+// Hero image — the big shot at the top of the homepage
+// Master bedroom, fully styled, dramatic light — pure staging quality
+export const HERO_IMAGE = u("1560185893-a55cbc8c57e8");
 
-// Before / After pair — both BEDROOMS for a clean comparison.
-// Before = empty/unstaged room. After = fully styled.
+/**
+ * Before / After bedroom pair.
+ * Both: hardwood floor + light walls + similar suburban Australian aesthetic.
+ * Closest visual match available from stock — swap with a real Refine pair when ready.
+ */
 export const BEFORE_AFTER = {
-  before: u("1668910233832-f21a40678c14"), // empty bedroom
-  after: u("1560185893-a55cbc8c57e8"),     // fully styled bedroom
+  before: px("7027995"),                 // empty bedroom, hardwood, white walls
+  after: u("1612152605347-f93296cb657d"), // staged bedroom, hardwood, white walls
 } as const;
 
 export const PHOTOS: Photo[] = [
-  // ─── BEDROOMS ───────────────────────────────────────────────
-  { src: u("1560185893-a55cbc8c57e8"), alt: "Master bedroom with full styling", categories: ["Bedroom", "Vacant"] },
-  { src: u("1616486029423-aaa4789e8c9a"), alt: "Modern bedroom with plants", categories: ["Bedroom", "Vacant"] },
-  { src: u("1556020685-ae41abfc9365"), alt: "Soft, light-filled bedroom", categories: ["Bedroom", "Vacant"] },
-  { src: u("1552558636-f6a8f071c2b3"), alt: "Bedroom with feature wall", categories: ["Bedroom", "Vacant"] },
-  { src: u("1600210491305-7396500b5b31"), alt: "Calm minimalist bedroom", categories: ["Bedroom", "Vacant"] },
-  { src: u("1696762932825-2737db830bbe"), alt: "Warm-toned bedroom", categories: ["Bedroom", "Occupied"] },
-  { src: u("1612152605347-f93296cb657d"), alt: "Bedroom with art and side table", categories: ["Bedroom", "Vacant"] },
-  { src: u("1631048501851-4aa85ffc3be8"), alt: "Bedroom with bench seat", categories: ["Bedroom", "Vacant"] },
-  { src: u("1633944095397-878622ebc01c"), alt: "Cosy lived-in bedroom", categories: ["Bedroom", "Occupied"] },
-  { src: u("1600494448655-ae58f58bb945"), alt: "Bedroom with decorative throws", categories: ["Bedroom", "Vacant"] },
+  // ─── BEDROOMS — fully styled, showing real staging work ────────────
+  { src: u("1560185893-a55cbc8c57e8"), alt: "Master bedroom — full styling, art, layered bedding", categories: ["Bedroom", "Vacant"] },
+  { src: u("1616486029423-aaa4789e8c9a"), alt: "Bedroom with gallery wall and plant styling", categories: ["Bedroom", "Vacant"] },
+  { src: u("1612152605347-f93296cb657d"), alt: "White bedroom with framed prints and bench", categories: ["Bedroom", "Vacant"] },
+  { src: u("1600210491305-7396500b5b31"), alt: "Bedroom with throw blanket and plants", categories: ["Bedroom", "Vacant"] },
+  { src: u("1631048501851-4aa85ffc3be8"), alt: "Bedroom with rattan pendant and mural", categories: ["Bedroom", "Vacant"] },
+  { src: u("1633944095397-878622ebc01c"), alt: "Bedroom with gallery wall and bedding", categories: ["Bedroom", "Vacant"] },
+  { src: u("1600494448655-ae58f58bb945"), alt: "Bedroom with arch headboard and styled side table", categories: ["Bedroom", "Vacant"] },
+  { src: u("1696762932825-2737db830bbe"), alt: "Designer bedroom with concrete and wood detailing", categories: ["Bedroom", "Occupied"] },
 
-  // ─── LIVING ROOMS ───────────────────────────────────────────
-  { src: u("1646592474167-16137d4da628"), alt: "Open-plan living room", categories: ["Living", "Vacant"] },
-  { src: u("1646592473974-b2ea9bd24717"), alt: "Lounge with feature lighting", categories: ["Living", "Vacant"] },
-  { src: u("1646592492329-e51d7dbdc6c4"), alt: "Modern living composition", categories: ["Living", "Vacant"] },
-  { src: u("1646592474237-72a0040a358e"), alt: "Living area with art", categories: ["Living", "Vacant"] },
-  { src: u("1646592492173-bef7e6970735"), alt: "Light-filled living space", categories: ["Living", "Vacant"] },
+  // ─── LIVING & DINING — clearly staged compositions ────────────
+  { src: u("1560448204-e02f11c3d0e2"), alt: "Living room with sofas, fireplace and styled coffee table", categories: ["Living", "Vacant"] },
+  { src: u("1629236714859-3a1ec2d8f6c3"), alt: "Living room with city view and styled sofa", categories: ["Living", "Vacant"] },
+  { src: u("1560185007-cde436f6a4d0"), alt: "Dining room set with table, chairs and pendant", categories: ["Living", "Vacant"] },
+  { src: u("1560185127-6ed189bf02f4"), alt: "Open-plan living and kitchen with styled coffee table", categories: ["Living", "Vacant"] },
+  { src: u("1646592474167-16137d4da628"), alt: "Living room with feature lighting", categories: ["Living", "Vacant"] },
+  { src: u("1646592492173-bef7e6970735"), alt: "Light-filled living space with art", categories: ["Living", "Vacant"] },
   { src: u("1646592492363-39c3626ebcf5"), alt: "Lounge styling detail", categories: ["Living", "Occupied"] },
-  { src: u("1646592474160-efdfd968fdd3"), alt: "Living room wide angle", categories: ["Living", "Vacant"] },
   { src: u("1646592473989-68196513244e"), alt: "Family lounge area", categories: ["Living", "Occupied"] },
 
-  // ─── KITCHENS ───────────────────────────────────────────────
-  { src: u("1610177534644-34d881503b83"), alt: "Modern kitchen with island", categories: ["Kitchen", "Vacant"] },
-  { src: u("1502005097973-6a7082348e28"), alt: "Open-plan kitchen and dining", categories: ["Kitchen", "Vacant"] },
-  { src: u("1725257928373-dc6d2ac7b145"), alt: "Bright contemporary kitchen", categories: ["Kitchen", "Vacant"] },
-  { src: u("1592506119503-c0b18879bd5a"), alt: "Kitchen with timber accents", categories: ["Kitchen", "Vacant"] },
-  { src: u("1643949915134-73a4c880f7c7"), alt: "Kitchen counter and shelving", categories: ["Kitchen", "Occupied"] },
-  { src: u("1663811396777-05505d999151"), alt: "Kitchen island detail", categories: ["Kitchen", "Vacant"] },
+  // ─── KITCHENS — only ones with visible styling vignettes ────────────
+  { src: u("1565182999561-18d7dc61c393"), alt: "Open-plan kitchen with styled island and seating", categories: ["Kitchen", "Vacant"] },
+  { src: u("1592506119503-c0b18879bd5a"), alt: "Kitchen with timber accents and decorative styling", categories: ["Kitchen", "Vacant"] },
+  { src: u("1643949915134-73a4c880f7c7"), alt: "Kitchen counter with open shelving and decor", categories: ["Kitchen", "Occupied"] },
+  { src: u("1502005097973-6a7082348e28"), alt: "Open-plan kitchen and dining with styling", categories: ["Kitchen", "Vacant"] },
+
+  // ─── DETAIL VIGNETTES — close-ups showing the stager's work ────────────
+  { src: u("1589988279835-9c3a838716ab"), alt: "Coffee table styling with books and decor", categories: ["Living", "Vacant"] },
+  { src: u("1593466287928-77cb390bb8a6"), alt: "Bedside table styling detail", categories: ["Bedroom", "Vacant"] },
+  { src: u("1544207239-b36c85778165"), alt: "Living vignette with art and lamp", categories: ["Living", "Occupied"] },
+  { src: u("1585955819182-8d2e7366afcb"), alt: "Sofa styling with cushions and throw", categories: ["Living", "Vacant"] },
 ];
 
 export const CATEGORIES: Category[] = ["Living", "Bedroom", "Kitchen", "Vacant", "Occupied"];
 
-// When user provides real photos, the asset() helper makes path swaps trivial:
+// When you have real Refine project photos, the asset() helper makes path swaps trivial:
 // Example: replace any entry above with:
-// { src: asset("/gallery/hawthorn-living.jpg"), alt: "Hawthorn living room", categories: ["Living", "Vacant"] }
+// { src: asset("/uploads/hawthorn-living.jpg"), alt: "Hawthorn living room", categories: ["Living", "Vacant"] }
 export { asset };
