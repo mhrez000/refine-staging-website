@@ -7,16 +7,51 @@ interface LogoProps {
   className?: string;
   size?: "sm" | "md" | "lg";
   asLink?: boolean;
+  layout?: "stacked" | "inline";
 }
 
 /**
- * Wordmark-only logo. The brand has no graphic mark — just the name.
- * Splits "Refine" (serif italic) and "STAGING" (uppercase tracked sans) for
- * the editorial-fashion-magazine feel.
+ * Wordmark logo for Refine Staging.
+ * - "stacked" (default): REFINE on top, STAGING below in tracked caps — editorial magazine style
+ * - "inline":            Refine (italic) + STAGING side-by-side — original treatment
  */
-export function Logo({ variant = "dark", className, size = "md", asLink = true }: LogoProps) {
+export function Logo({
+  variant = "dark",
+  className,
+  size = "md",
+  asLink = true,
+  layout = "stacked",
+}: LogoProps) {
   const colorClass = variant === "dark" ? "text-foreground" : "text-background";
 
+  if (layout === "stacked") {
+    const sizes = {
+      sm: { primary: "text-base md:text-lg", secondary: "text-[0.5rem] md:text-[0.55rem]" },
+      md: { primary: "text-xl md:text-2xl", secondary: "text-[0.55rem] md:text-[0.65rem]" },
+      lg: { primary: "text-3xl md:text-4xl", secondary: "text-[0.65rem] md:text-[0.75rem]" },
+    };
+    const s = sizes[size];
+
+    const inner = (
+      <span className={cn("inline-flex flex-col items-start leading-none", colorClass, className)}>
+        <span className={cn(s.primary, "uppercase tracking-[0.18em] font-serif font-light")}>
+          Refine
+        </span>
+        <span className={cn(s.secondary, "uppercase tracking-[0.5em] font-sans font-medium mt-1.5 opacity-90")}>
+          Staging
+        </span>
+      </span>
+    );
+
+    if (!asLink) return inner;
+    return (
+      <Link href="/" aria-label={`${SITE.name} — home`}>
+        {inner}
+      </Link>
+    );
+  }
+
+  // inline (legacy)
   const sizes = {
     sm: { primary: "text-xl md:text-2xl", secondary: "text-[0.55rem] md:text-[0.6rem]" },
     md: { primary: "text-2xl md:text-3xl", secondary: "text-[0.6rem] md:text-[0.7rem]" },

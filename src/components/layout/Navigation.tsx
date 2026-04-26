@@ -3,14 +3,15 @@ import { Link, useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Logo } from "@/components/Logo";
+import { Button } from "@/components/ui/button";
 import { cn, EASE } from "@/lib/utils";
 
 const NAV_ITEMS = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
-  { label: "Gallery", href: "/gallery" },
-  { label: "Testimonials", href: "/testimonials" },
-  { label: "About", href: "/about" },
+  { label: "Portfolio", href: "/gallery" },
+  { label: "About Us", href: "/about" },
+  { label: "Reviews", href: "/testimonials" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -31,21 +32,25 @@ export function Navigation() {
     setMobileOpen(false);
   }, [location]);
 
+  // On home page (over the dark side of the slider), use light variant before scroll
+  const isHome = location === "/";
+  const useLight = isHome && !scrolled && !mobileOpen;
+
   return (
     <>
       <header
         className={cn(
           "fixed top-0 inset-x-0 z-50 transition-all duration-500",
           scrolled || mobileOpen
-            ? "py-4 glass border-b border-foreground/5"
-            : "py-6 bg-transparent"
+            ? "py-3 glass border-b border-foreground/5"
+            : "py-5 bg-transparent"
         )}
       >
-        <div className="container-x flex items-center justify-between">
-          <Logo size="sm" />
+        <div className="container-x flex items-center justify-between gap-6">
+          <Logo size="sm" variant={useLight ? "light" : "dark"} layout="stacked" />
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-10">
+          <nav className="hidden lg:flex items-center gap-8">
             {NAV_ITEMS.map((item) => {
               const isActive = item.href === location || (item.href !== "/" && location.startsWith(item.href));
               return (
@@ -53,20 +58,53 @@ export function Navigation() {
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    "text-[11px] uppercase tracking-[0.25em] font-medium magnetic-line transition-colors duration-300",
-                    isActive ? "text-accent" : "text-foreground/80 hover:text-foreground"
+                    "relative text-[11px] uppercase tracking-[0.25em] font-medium transition-colors duration-300 py-1",
+                    useLight
+                      ? isActive
+                        ? "text-background"
+                        : "text-background/75 hover:text-background"
+                      : isActive
+                        ? "text-foreground"
+                        : "text-foreground/70 hover:text-foreground"
                   )}
                 >
                   {item.label}
+                  {isActive && (
+                    <span
+                      className={cn(
+                        "absolute -bottom-1 left-0 right-0 h-px",
+                        useLight ? "bg-background" : "bg-accent"
+                      )}
+                    />
+                  )}
                 </Link>
               );
             })}
           </nav>
 
+          {/* Book CTA — desktop only */}
+          <div className="hidden lg:block shrink-0">
+            <Button
+              asChild
+              variant="outline"
+              size="sm"
+              className={cn(
+                useLight
+                  ? "border-background/60 text-background hover:bg-background hover:text-foreground hover:border-background"
+                  : "border-accent/60 text-foreground hover:bg-accent hover:border-accent hover:text-accent-foreground"
+              )}
+            >
+              <Link href="/contact">Book a Consultation</Link>
+            </Button>
+          </div>
+
           {/* Mobile menu button */}
           <button
             type="button"
-            className="md:hidden h-10 w-10 inline-flex items-center justify-center text-foreground"
+            className={cn(
+              "lg:hidden h-10 w-10 inline-flex items-center justify-center transition-colors",
+              useLight ? "text-background" : "text-foreground"
+            )}
             onClick={() => setMobileOpen((v) => !v)}
             aria-label="Toggle menu"
           >
@@ -83,7 +121,7 @@ export function Navigation() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-background pt-24 md:hidden"
+            className="fixed inset-0 z-40 bg-background pt-24 lg:hidden"
           >
             <nav className="container-x flex flex-col gap-2">
               {NAV_ITEMS.map((item, i) => (
@@ -101,6 +139,16 @@ export function Navigation() {
                   </Link>
                 </motion.div>
               ))}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.05 + NAV_ITEMS.length * 0.05, ease: EASE }}
+                className="mt-8"
+              >
+                <Button asChild variant="default" size="lg" className="w-full">
+                  <Link href="/contact">Book a Consultation</Link>
+                </Button>
+              </motion.div>
             </nav>
           </motion.div>
         )}

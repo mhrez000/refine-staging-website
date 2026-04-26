@@ -132,13 +132,17 @@ export function BeforeAfterSlider({
         />
       </div>
 
-      {/* Labels */}
-      <div className="absolute top-5 left-5 px-3 py-1.5 bg-background/80 backdrop-blur-sm text-[10px] uppercase tracking-[0.2em] font-medium text-foreground pointer-events-none">
-        {beforeLabel}
-      </div>
-      <div className="absolute top-5 right-5 px-3 py-1.5 bg-foreground/80 backdrop-blur-sm text-[10px] uppercase tracking-[0.2em] font-medium text-background pointer-events-none">
-        {afterLabel}
-      </div>
+      {/* Labels (hidden if empty string passed) */}
+      {beforeLabel && (
+        <div className="absolute top-5 left-5 px-3 py-1.5 bg-background/80 backdrop-blur-sm text-[10px] uppercase tracking-[0.2em] font-medium text-foreground pointer-events-none">
+          {beforeLabel}
+        </div>
+      )}
+      {afterLabel && (
+        <div className="absolute top-5 right-5 px-3 py-1.5 bg-foreground/80 backdrop-blur-sm text-[10px] uppercase tracking-[0.2em] font-medium text-background pointer-events-none">
+          {afterLabel}
+        </div>
+      )}
 
       {/* Slider handle */}
       <motion.div

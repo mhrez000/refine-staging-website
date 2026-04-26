@@ -1,137 +1,156 @@
 import { Link } from "wouter";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
-import { ArrowRight, ArrowDown } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowRight, Armchair, TrendingUp, Clock, Home as HomeIcon } from "lucide-react";
 import { PageWrapper } from "@/components/layout/PageWrapper";
 import { SectionLabel } from "@/components/ui/section-label";
 import { Button } from "@/components/ui/button";
-import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { BeforeAfterSlider } from "@/components/BeforeAfterSlider";
 import { SITE, SERVICES, PROCESS } from "@/data/site";
 import { TESTIMONIALS } from "@/data/testimonials";
-import { PHOTOS, HERO_IMAGE, BEFORE_AFTER } from "@/data/gallery";
+import { PHOTOS, BEFORE_AFTER } from "@/data/gallery";
 import { EASE } from "@/lib/utils";
 
-export default function Home() {
-  const heroRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
-  const heroImageY = useTransform(scrollYProgress, [0, 1], [0, 200]);
-  const heroTextOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+const FEATURES = [
+  {
+    icon: Armchair,
+    title: "Increase Appeal",
+    text: "Beautifully staged homes attract more buyers.",
+  },
+  {
+    icon: TrendingUp,
+    title: "Higher Offers",
+    text: "Well-presented homes achieve higher sale prices.",
+  },
+  {
+    icon: Clock,
+    title: "Sell Faster",
+    text: "Stand out in the market and reduce days on market.",
+  },
+  {
+    icon: HomeIcon,
+    title: "Maximise Potential",
+    text: "We showcase the true potential of every space.",
+  },
+];
 
+export default function Home() {
   // Featured photos for the homepage gallery teaser
   const featured = PHOTOS.slice(0, 6);
 
   return (
     <PageWrapper>
-      {/* ==================== HERO ==================== */}
-      <section ref={heroRef} className="relative h-screen min-h-[640px] w-full overflow-hidden">
-        {/* Parallax background image */}
-        <motion.div style={{ y: heroImageY }} className="absolute inset-0">
-          <img
-            src={HERO_IMAGE}
-            alt="Featured staged interior"
-            className="w-full h-full object-cover scale-110"
+      {/* ==================== HERO — full-screen before/after with overlay ==================== */}
+      <section className="relative h-screen min-h-[640px] w-full overflow-hidden">
+        {/* Slider fills the entire hero */}
+        <div className="absolute inset-0">
+          <BeforeAfterSlider
+            beforeSrc={BEFORE_AFTER.before}
+            afterSrc={BEFORE_AFTER.after}
+            beforeLabel=""
+            afterLabel=""
+            aspectRatio="h-full"
+            className="w-full h-full"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-foreground/30 via-foreground/10 to-background" />
-        </motion.div>
-
-        {/* Hero content */}
-        <motion.div
-          style={{ opacity: heroTextOpacity }}
-          className="relative h-full flex flex-col items-center justify-center text-center container-x"
-        >
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: EASE, delay: 0.3 }}
-            className="text-[10px] uppercase tracking-[0.4em] text-background/80 mb-8"
-          >
-            {SITE.serviceArea}
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: EASE, delay: 0.5 }}
-            className="font-serif text-background text-5xl md:text-7xl lg:text-8xl font-light leading-[1.05] text-balance max-w-5xl"
-          >
-            <span className="italic">Property styling</span> that<br />helps homes sell.
-          </motion.h1>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: EASE, delay: 1 }}
-            className="mt-12 flex flex-col md:flex-row gap-4 items-center"
-          >
-            <Button asChild size="lg" variant="default">
-              <Link href="/gallery">
-                View our work
-                <ArrowRight size={14} />
-              </Link>
-            </Button>
-            <Button asChild size="lg" variant="outline">
-              <Link href="/contact">Free consult</Link>
-            </Button>
-          </motion.div>
-        </motion.div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2, duration: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-background/70 flex flex-col items-center gap-2"
-        >
-          <span className="text-[9px] uppercase tracking-[0.3em]">Scroll</span>
-          <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}>
-            <ArrowDown size={14} />
-          </motion.div>
-        </motion.div>
-      </section>
-
-      {/* ==================== STATS STRIP ==================== */}
-      <section className="bg-foreground text-background section-padding">
-        <div className="container-x grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
-          {SITE.stats.map((stat, i) => (
-            <div key={stat.label} className="md:border-l md:border-background/10 md:pl-8 md:first:border-l-0 md:first:pl-0">
-              <AnimatedCounter
-                value={stat.value}
-                suffix={stat.suffix}
-                label={stat.label}
-                delay={i * 0.15}
-              />
-            </div>
-          ))}
         </div>
-      </section>
 
-      {/* ==================== BEFORE / AFTER FEATURE ==================== */}
-      <section className="section-padding container-x">
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <SectionLabel number="01" className="justify-center">The Refine effect</SectionLabel>
-          <h2 className="font-serif text-4xl md:text-6xl mt-6 leading-[1.1] text-balance">
-            We don't just stage homes.<br />
-            We transform <span className="italic">potential.</span>
-          </h2>
-          <p className="mt-6 text-muted-foreground max-w-md mx-auto">
-            From empty to extraordinary. Drag the handle to see the difference.
-          </p>
-        </div>
-        <BeforeAfterSlider
-          beforeSrc={BEFORE_AFTER.before}
-          afterSrc={BEFORE_AFTER.after}
-          beforeLabel="Empty Space"
-          afterLabel="Beautifully Staged"
-          aspectRatio={BEFORE_AFTER.aspectRatio}
-          className="max-w-6xl mx-auto"
+        {/* Left-side darkening gradient so white text is readable */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.35) 25%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0) 60%)",
+          }}
         />
-        <p className="mt-6 text-center text-sm text-muted-foreground italic">
-          Tip: drag the handle, or use ← → arrow keys.
-        </p>
+
+        {/* Top fade for nav legibility */}
+        <div className="absolute inset-x-0 top-0 h-32 pointer-events-none bg-gradient-to-b from-foreground/50 to-transparent" />
+
+        {/* Overlay content — left side */}
+        <div className="absolute inset-0 pointer-events-none container-x flex items-center">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease: EASE, delay: 0.4 }}
+            className="max-w-xl text-background"
+          >
+            <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-light leading-[1.05] text-balance">
+              We don't just<br />
+              <span className="italic">stage homes.</span><br />
+              We transform<br />
+              <span className="italic text-accent">potential.</span>
+            </h1>
+            <p className="mt-8 text-base md:text-lg text-background/85 max-w-md leading-relaxed">
+              From empty to extraordinary.<br />
+              We help homes stand out and sell faster.
+            </p>
+            <div className="mt-10 pointer-events-auto">
+              <Button asChild size="lg" variant="outline" className="border-accent text-background hover:bg-accent hover:border-accent">
+                <Link href="/contact">
+                  Book a Consultation <ArrowRight size={14} />
+                </Link>
+              </Button>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Bottom progress strip */}
+        <div className="absolute bottom-0 inset-x-0 pb-10 pointer-events-none">
+          <div className="container-x">
+            <div className="grid grid-cols-3 gap-4 max-w-5xl mx-auto items-center">
+              <div className="text-background/85 flex items-center gap-3">
+                <span className="font-serif italic text-sm opacity-70">01</span>
+                <span className="h-px flex-1 bg-background/30" />
+                <span className="text-[10px] uppercase tracking-[0.3em] font-medium whitespace-nowrap">
+                  Empty Space
+                </span>
+              </div>
+              <div className="text-background flex items-center justify-center gap-3">
+                <span className="h-px flex-1 bg-background/30" />
+                <span className="h-2 w-2 rounded-full bg-background ring-4 ring-background/20" />
+                <span className="text-[10px] uppercase tracking-[0.3em] font-medium whitespace-nowrap">
+                  Transformation
+                </span>
+                <span className="h-px flex-1 bg-background/30" />
+              </div>
+              <div className="text-background/85 flex items-center gap-3 justify-end">
+                <span className="text-[10px] uppercase tracking-[0.3em] font-medium whitespace-nowrap">
+                  Beautifully Staged
+                </span>
+                <span className="h-px flex-1 bg-background/30" />
+                <span className="font-serif italic text-sm opacity-70">03</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ==================== FEATURE CARDS — replaces stats ==================== */}
+      <section className="py-20 md:py-28 container-x bg-background border-b border-border/40">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-8 max-w-6xl mx-auto">
+          {FEATURES.map((f, i) => {
+            const Icon = f.icon;
+            return (
+              <motion.div
+                key={f.title}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.7, delay: i * 0.08, ease: EASE }}
+                className="text-center flex flex-col items-center"
+              >
+                <div className="h-14 w-14 rounded-full bg-foreground text-background flex items-center justify-center mb-5">
+                  <Icon size={20} strokeWidth={1.6} />
+                </div>
+                <h3 className="text-[11px] uppercase tracking-[0.25em] font-semibold text-foreground mb-3">
+                  {f.title}
+                </h3>
+                <p className="text-sm text-muted-foreground leading-relaxed max-w-[180px]">
+                  {f.text}
+                </p>
+              </motion.div>
+            );
+          })}
+        </div>
       </section>
 
       {/* ==================== SERVICES PREVIEW ==================== */}
@@ -182,7 +201,7 @@ export default function Home() {
             </h2>
           </div>
           <Link href="/gallery" className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] magnetic-line shrink-0">
-            Full gallery <ArrowRight size={14} />
+            Full portfolio <ArrowRight size={14} />
           </Link>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
@@ -230,7 +249,7 @@ export default function Home() {
       {/* ==================== TESTIMONIAL PULL QUOTE ==================== */}
       <section className="section-padding bg-foreground text-background">
         <div className="container-x max-w-4xl mx-auto text-center">
-          <SectionLabel number="05" className="justify-center text-background/60">Testimonial</SectionLabel>
+          <SectionLabel number="05" className="justify-center text-background/60">Reviews</SectionLabel>
           <motion.blockquote
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
