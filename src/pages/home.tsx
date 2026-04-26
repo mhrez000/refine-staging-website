@@ -39,8 +39,9 @@ export default function Home() {
 
   return (
     <PageWrapper>
-      {/* ==================== HERO — full-screen before/after with overlay ==================== */}
-      <section className="relative h-screen min-h-[640px] w-full overflow-hidden bg-foreground">
+      {/* ==================== HERO — panoramic before/after with overlay ==================== */}
+      {/* Image is naturally 3:1 — give the section the same aspect ratio so the entire staged room shows */}
+      <section className="relative w-full overflow-hidden bg-foreground aspect-[3/1] min-h-[520px] md:min-h-[640px]">
         {/* Slider fills the entire hero */}
         <div className="absolute inset-0 z-0">
           <BeforeAfterSlider
@@ -71,23 +72,21 @@ export default function Home() {
         {/* Overlay content — left side. Entrance animation via CSS so we don't depend on Motion lifecycle. */}
         <div className="absolute inset-0 z-20 pointer-events-none container-x flex items-center">
           <div
-            className="max-w-xl text-white animate-[hero-rise_1.4s_cubic-bezier(0.22,1,0.36,1)_0.3s_both]"
+            className="max-w-lg text-white animate-[hero-rise_1.4s_cubic-bezier(0.22,1,0.36,1)_0.3s_both]"
             style={{ textShadow: "0 2px 24px rgba(0,0,0,0.4)" }}
           >
-            <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-light leading-[1.05] text-balance">
-              We don't just<br />
-              <span className="italic">stage homes.</span><br />
-              We transform<br />
-              <span className="italic text-accent">potential.</span>
+            <h1 className="font-serif text-3xl md:text-5xl lg:text-6xl font-light leading-[1.05] text-balance">
+              We don't just <span className="italic">stage homes.</span>{" "}
+              We transform <span className="italic text-accent">potential.</span>
             </h1>
-            <p className="mt-8 text-base md:text-lg text-white/90 max-w-md leading-relaxed">
-              From empty to extraordinary.<br />
+            <p className="mt-5 md:mt-6 text-sm md:text-base text-white/90 max-w-md leading-relaxed">
+              From empty to extraordinary.<br className="hidden md:inline" />{" "}
               We help homes stand out and sell faster.
             </p>
-            <div className="mt-10 pointer-events-auto inline-block">
+            <div className="mt-6 md:mt-8 pointer-events-auto inline-block">
               <Link
                 href="/contact"
-                className="group inline-flex items-center gap-3 px-8 py-4 border border-accent text-white text-[11px] uppercase tracking-[0.25em] font-medium transition-all duration-500 hover:bg-accent hover:border-accent"
+                className="group inline-flex items-center gap-3 px-6 md:px-8 py-3 md:py-4 border border-accent text-white text-[10px] md:text-[11px] uppercase tracking-[0.25em] font-medium transition-all duration-500 hover:bg-accent hover:border-accent"
               >
                 Book a Consultation
                 <ArrowRight size={14} className="transition-transform duration-500 group-hover:translate-x-1" />
