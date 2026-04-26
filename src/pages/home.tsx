@@ -72,7 +72,7 @@ export default function Home() {
                 afterSrc={BEFORE_AFTER.after}
                 beforeLabel=""
                 afterLabel=""
-                aspectRatio="aspect-[3/2]"
+                aspectRatio={BEFORE_AFTER.aspectRatio}
                 className="w-full"
               />
             </div>
