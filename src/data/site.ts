@@ -1,3 +1,5 @@
+import { asset } from "@/lib/utils";
+
 /**
  * Site-wide constants.
  * Update these when client provides final copy / contact info.
@@ -43,7 +45,7 @@ export const SERVICES = [
       "Furniture layout suggestions",
       "Quick-win checklist for sale prep",
     ],
-    image: "/gallery/g03.jpg",
+    image: asset("/gallery/g03.jpg"),
   },
   {
     slug: "vacant",
@@ -57,7 +59,7 @@ export const SERVICES = [
       "Delivery, set-up and pack-down",
       "5-week hire period (extendable)",
     ],
-    image: "/gallery/g08.jpg",
+    image: asset("/gallery/g08.jpg"),
   },
   {
     slug: "occupied",
@@ -71,7 +73,7 @@ export const SERVICES = [
       "Supplementary décor and art",
       "Inspection-day refresh",
     ],
-    image: "/gallery/g14.jpg",
+    image: asset("/gallery/g14.jpg"),
   },
 ] as const;
 
