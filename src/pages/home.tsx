@@ -40,9 +40,9 @@ export default function Home() {
   return (
     <PageWrapper>
       {/* ==================== HERO — full-screen before/after with overlay ==================== */}
-      <section className="relative h-screen min-h-[640px] w-full overflow-hidden">
+      <section className="relative h-screen min-h-[640px] w-full overflow-hidden bg-foreground">
         {/* Slider fills the entire hero */}
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 z-0">
           <BeforeAfterSlider
             beforeSrc={BEFORE_AFTER.before}
             afterSrc={BEFORE_AFTER.after}
@@ -53,25 +53,29 @@ export default function Home() {
           />
         </div>
 
-        {/* Left-side darkening gradient so white text is readable */}
+        {/* Strong left-side darkening so white text is fully readable on bright "empty" image */}
         <div
-          className="absolute inset-0 pointer-events-none"
+          className="absolute inset-0 pointer-events-none z-10"
           style={{
             background:
-              "linear-gradient(90deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.35) 25%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0) 60%)",
+              "linear-gradient(90deg, rgba(15,15,15,0.85) 0%, rgba(15,15,15,0.7) 25%, rgba(15,15,15,0.4) 45%, rgba(15,15,15,0.1) 60%, rgba(0,0,0,0) 75%)",
           }}
         />
 
-        {/* Top fade for nav legibility */}
-        <div className="absolute inset-x-0 top-0 h-32 pointer-events-none bg-gradient-to-b from-foreground/50 to-transparent" />
+        {/* Top fade for nav legibility (full-width) */}
+        <div className="absolute inset-x-0 top-0 h-32 pointer-events-none z-10 bg-gradient-to-b from-black/40 to-transparent" />
+
+        {/* Bottom fade for progress-strip legibility */}
+        <div className="absolute inset-x-0 bottom-0 h-32 pointer-events-none z-10 bg-gradient-to-t from-black/50 to-transparent" />
 
         {/* Overlay content — left side */}
-        <div className="absolute inset-0 pointer-events-none container-x flex items-center">
+        <div className="absolute inset-0 z-20 pointer-events-none container-x flex items-center">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, ease: EASE, delay: 0.4 }}
-            className="max-w-xl text-background"
+            className="max-w-xl text-white"
+            style={{ textShadow: "0 2px 24px rgba(0,0,0,0.4)" }}
           >
             <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-light leading-[1.05] text-balance">
               We don't just<br />
@@ -79,44 +83,46 @@ export default function Home() {
               We transform<br />
               <span className="italic text-accent">potential.</span>
             </h1>
-            <p className="mt-8 text-base md:text-lg text-background/85 max-w-md leading-relaxed">
+            <p className="mt-8 text-base md:text-lg text-white/90 max-w-md leading-relaxed">
               From empty to extraordinary.<br />
               We help homes stand out and sell faster.
             </p>
-            <div className="mt-10 pointer-events-auto">
-              <Button asChild size="lg" variant="outline" className="border-accent text-background hover:bg-accent hover:border-accent">
-                <Link href="/contact">
-                  Book a Consultation <ArrowRight size={14} />
-                </Link>
-              </Button>
+            <div className="mt-10 pointer-events-auto inline-block">
+              <Link
+                href="/contact"
+                className="group inline-flex items-center gap-3 px-8 py-4 border border-accent text-white text-[11px] uppercase tracking-[0.25em] font-medium transition-all duration-500 hover:bg-accent hover:border-accent"
+              >
+                Book a Consultation
+                <ArrowRight size={14} className="transition-transform duration-500 group-hover:translate-x-1" />
+              </Link>
             </div>
           </motion.div>
         </div>
 
         {/* Bottom progress strip */}
-        <div className="absolute bottom-0 inset-x-0 pb-10 pointer-events-none">
+        <div className="absolute bottom-0 inset-x-0 pb-10 pointer-events-none z-20">
           <div className="container-x">
             <div className="grid grid-cols-3 gap-4 max-w-5xl mx-auto items-center">
-              <div className="text-background/85 flex items-center gap-3">
+              <div className="text-white flex items-center gap-3">
                 <span className="font-serif italic text-sm opacity-70">01</span>
-                <span className="h-px flex-1 bg-background/30" />
+                <span className="h-px flex-1 bg-white/30" />
                 <span className="text-[10px] uppercase tracking-[0.3em] font-medium whitespace-nowrap">
                   Empty Space
                 </span>
               </div>
-              <div className="text-background flex items-center justify-center gap-3">
-                <span className="h-px flex-1 bg-background/30" />
-                <span className="h-2 w-2 rounded-full bg-background ring-4 ring-background/20" />
+              <div className="text-white flex items-center justify-center gap-3">
+                <span className="h-px flex-1 bg-white/30" />
+                <span className="h-2 w-2 rounded-full bg-white ring-4 ring-white/20" />
                 <span className="text-[10px] uppercase tracking-[0.3em] font-medium whitespace-nowrap">
                   Transformation
                 </span>
-                <span className="h-px flex-1 bg-background/30" />
+                <span className="h-px flex-1 bg-white/30" />
               </div>
-              <div className="text-background/85 flex items-center gap-3 justify-end">
+              <div className="text-white flex items-center gap-3 justify-end">
                 <span className="text-[10px] uppercase tracking-[0.3em] font-medium whitespace-nowrap">
                   Beautifully Staged
                 </span>
-                <span className="h-px flex-1 bg-background/30" />
+                <span className="h-px flex-1 bg-white/30" />
                 <span className="font-serif italic text-sm opacity-70">03</span>
               </div>
             </div>
